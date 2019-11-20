@@ -1,0 +1,27 @@
+---
+- hosts: web
+  tasks:
+   - name: Install dumb init
+     get-url:
+       dest: /usr/bin/dump-init
+       url: https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2.amd64
+       mode: 0775
+       validate-certs: no
+   - name: Install REPL
+     yum:
+       name: epel-release
+       state: latest
+   - name: Install Nginx
+     yum:
+       name: nginx
+       state: latest
+   - name: Copy index update
+     copy:
+       src: files/index.html
+       dest: /usr/share/nginx/html/index.html
+       owner: root
+       group: root
+       mode: 0777
+
+
+
