@@ -6,5 +6,7 @@ vi $HOME/.config/openstack/clouds.yaml
 openstack --os-cloud production catalog list
 
 
+ansible-playbook openstack_playbook.yaml
+pip2 install shade
 
 
