@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - os_user:
+    cloud: internal
+    name: takagotch
+    state: absetn
+
+

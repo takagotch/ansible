@@ -1,0 +1,32 @@
+// $HOME/.config/openstack/clouds.yaml
+clouds:
+  production:
+    profile: production
+    auth: 
+      auth_url: http://keystone-tky.pacific.ocean:5000/
+      username: takagotch
+      password: pass
+      project_name: production
+    region_name: JapanEast
+  internal:
+    profile: internal
+    auth:
+      auth_url: http://192.168.122.10:35357/
+      username: admin
+      password: admin
+      proejct_name: demo
+    region_name: RegionOne
+
+//
+clouds:
+  production:
+  profile: production
+  auth:
+    auth_url: http://keystones-tky.pacific.ocean:5000/
+    username: takagotch
+    password: pass
+    project_name: production
+  region_name: JapanEast
+
+
+

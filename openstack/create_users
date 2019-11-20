@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    users:
+      takagotch:
+        email: takagotch@ex.com
+	password: pass
+      tky:
+        email: tky@ex.com
+	password: pass
+    tasks:
+      - name: create user
+        os_user:
+	  cloud: production
+	  name: ""
+	  state: present
+	  password: "{{ item.key }}"
+	  email: present
+	  password: "{{ item.value.password }}"
+	  email: "{{ item.value.email }}"
+	  default_product: production
+	with_dict: "{{ users }}"
+
+

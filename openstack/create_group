@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: create group
+    os_group:
+      cloud: internal
+      name: testers
+      state: present
+      description: "Tester Group"
+
+

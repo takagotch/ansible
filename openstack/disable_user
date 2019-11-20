@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: remove user
+    os_user: 
+      cloud: internal
+      name: takagotch
+      state: present
+      enabled: False
+

@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  connections: local
+  vars:
+    os_auth_url: "{{ lookup('env','OS_AUTH_URL') }}"
+    os_usrename: "{{ lookup('env','OS_USERNAME') }}"
+    os_password: "{{ lookup('env','OS_PASSWORD') }}"
+    os_project_name: "{{ lookup('env','OS_TENANT_NAME') }}"
+    os_region_name: "{{ lookup('env','OS_REGION_NAME') }}"
+  tasks:
+   - name: create instance
+     os_serer:
+       name: webserver
+       state: present
+       timeout: 600
+       image: xxx
+       security_groups: webserver
+       flavor: ml.small
+       nica:
+        - net-id: xxx
+       meta:
+        hostname: deploy-by-ansible
+
+

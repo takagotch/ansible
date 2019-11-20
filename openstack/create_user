@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+   - name: create user
+     os_user:
+       cloud: internal
+       name: takagotch
+       password: secret
+       email: takagotch@ex.com
+       default_project: demo
+
+

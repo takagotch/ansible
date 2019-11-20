@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+   - name: Upload keypair
+     os_keypair:
+       cloud: production
+       state: present
+       name: kp-takagotch-ansible
+       public_key_file: /home/tky/.ssh/ansible.pub
+
+
+
