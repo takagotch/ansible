@@ -13,5 +13,18 @@ ansible-container run -d
 
 ansible-container run -d
 
+curl localhost:8080
+docker ps
+docker exec xxx ps -ef
+ansible-container stop
+ansible-container build
+andible-container run -d
+curl localhost:8080
+ansible-container push --username nhashimo
+docker search docker.io/nhashimo/nginx-web
+docker pull docker.io/takagotch/nginx-web:2019112100000
+ansible-container push --username takagotch --push-to dockerhub
+
+
 
 
