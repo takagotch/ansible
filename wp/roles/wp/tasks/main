@@ -1,0 +1,57 @@
+- name: WordPress
+  template:
+    src: wp-config.j2.php
+    dest: "{{ wordpress_home }}/wp-config.php"
+    owner: "{{ wordpress_user }}"
+    group: "{{ wordpress_group }}"
+
+
+- name: PHP-FPM
+  template:
+    src: wordpress.fpm.j2.conf
+    dest: "{{ wordpress_php_fpm_config_dir }}/wordpress.conf"
+  notify:
+   - PHP-FPM
+
+- name: PHP-FPM
+  command: php-fpm -t
+  changed_when: false
+
+
+
+
+- name: Nginx
+  template:
+    src: wordpress.nginx.j2.conf
+    dest: "{{ wordpress_nginx_config_dir }}/wordpress.conf"
+  notify:
+   - Nginx reload
+- name: Nginx test
+  command: nginx -t
+  changed_when: false
+
+
+
+- name: Firewalld
+  firewalld:
+    port: "{{ wordpress_port }}/tcp"
+    permanent: true
+    state: enabled
+
+- name: CeonOS7 wp
+  roles:
+   - name: wordpress
+     vars:
+       wordpress_db_name: "{{ db_name }}"
+       wordpress_db_user_name: "{{ db_user }}"
+       wordpress_db_user_password: "{{ db_password }}"
+       wordpress_nginx_user: "{{ nginx_user }}"
+       wordpress_nginx_gorup: "{{ nginx_group }}"
+       wordpress_nginx_config_dir: "{{ nginx_config_dir }}"
+       wordpress_pip_fpm_config_dir: "{{ php_fpm_config_dir }}"
+     tags:
+      - wordpress
+
+
+
+
