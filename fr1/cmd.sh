@@ -25,6 +25,16 @@ docker search docker.io/nhashimo/nginx-web
 docker pull docker.io/takagotch/nginx-web:2019112100000
 ansible-container push --username takagotch --push-to dockerhub
 
+git clone https://github.com/takagotch/ansible-ci-testing.git
+ansible-galaxy init -f ansible-ci-testing
+
+cd ansible-ci-testing/
+git add .
+git commit . -m 'First commit'
+git push -u origin master
+
+ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+ansible-playbook tests/test.yml -i tests/inventory
 
 
 

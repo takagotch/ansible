@@ -1,0 +1,6 @@
+---
+- name: Noting but debug message
+  debug:
+    msg: 'message'
+
+
