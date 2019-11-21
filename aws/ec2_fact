@@ -1,0 +1,8 @@
+- name: Gathering ec2 facts
+  ec2_facts:
+  tags:
+   - always
+  register: ec2_find
+
+
+

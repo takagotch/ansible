@@ -1,0 +1,21 @@
+- name: Instance De-register
+  local_action: ec2_elb
+  args:
+    instance_id: "{{ ansible_ec2_instance_id }}"
+    state: absent
+    wait_timeout: 300
+  tags:
+   - always
+
+- name: Instance Register
+  local_action: ec2_elb
+  args:
+    instance_id: "{{ ansible_ec2_instance_id }}"
+    ec2_elbs: "{{ item }}"
+    state: present
+    wait_timeout: 300
+  with_items: "{{ ec2_elbs }}"
+  tags:
+    - always
+
+

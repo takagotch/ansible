@@ -1,0 +1,8 @@
+- name: Facts about default VPC subnet
+  ec2_vpc_subnet_facts:
+    filters:
+      vpc-id: ""
+  register: vpc_subnet_find
+
+
+

@@ -1,0 +1,16 @@
+- name: launch ansible cloudformation
+  cloudformation:
+    stack_name: ansible-cloudformation-{{ cloudformation_Environment }}
+    state: present
+    template: roles/cloudformation/files/cloudformation.json
+    template_parameters:
+      KeyName: "{{ cloudformation_KeyName }}"
+      SSHLocation: "{{ cloudformation_SSHLocation }}"
+      AMI: "{{ ami_find.results[0].ami_id }}"
+    tags:
+      stack: ansible-cloudformation
+      env: "{{ cloudformation_Environment }}"
+    register: output
+
+ 
+
