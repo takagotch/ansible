@@ -1,0 +1,25 @@
+- name: Inventory
+  add_host:
+    name: created-host
+    groups: created,app
+    ansible_host: "{{ created_host_ip }}"
+    ansible_port: 22
+
+- name: add_host
+  hosts: localhost
+  tasks:
+
+- name: newhost inventory add
+  add_host:
+    name: created-host
+    groups: created
+    ansible_host: "{{ created_host_ip }}"
+
+- name: newcreate host deployment
+  hosts: created
+  tasks:
+
+
+
+
+

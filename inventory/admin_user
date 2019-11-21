@@ -1,0 +1,9 @@
+admin_user:
+  name: takagotch
+  uid: 1001
+
+- debug:
+  msg: "{{ my_var }}"
+
+
+

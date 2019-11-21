@@ -1,0 +1,16 @@
+- name: OS family group
+  hosts: all
+  tasks:
+   - name: 
+     group_by:
+       key: "{{ ansible_os_family }}"
+
+- name: Red Hat update
+  hosts: Red Hat
+
+- name: Debian update
+  hosts: Debian
+
+
+
+

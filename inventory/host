@@ -1,0 +1,47 @@
+[app]
+app1 ansible_host=some.app.host
+app2 ansible_host=another.app.host
+
+[db]
+db1 ansible_host=db.1.host
+db2 ansible_host=db.2.host
+
+[app]
+app1 ansible_host=some.host
+app2 ansible_host=anoeher.app.host
+
+[db]
+db1 ansible_host=db.1.host
+db2 ansible_host=db.2.host
+
+[app:vars]
+admin_username=app_user
+admin_uid=1001
+
+[db:vars]
+admin_username=db_user
+admin_uid=1002
+
+
+[app]
+app1 ansible_host=some.app.host
+app2 ansible_host=another.app.host
+
+[db]
+db1 ansible_host=e.1.host
+db2 ansible_host=db.2.host
+
+[japaneast]
+app1
+db1
+
+[japanwest]
+app2
+db2
+
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+- name: secretkey
+  hosts: all
+  tasks:
+   - name: secret task
+     command: 'echo "{{ my_secret_password }}"'
+     changed_when: false
+     no_log: true
+
+
+

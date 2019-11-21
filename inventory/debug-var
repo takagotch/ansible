@@ -1,0 +1,11 @@
+---
+- name: var
+  hosts: localhost
+  vars:
+    my_var: 
+  tasks:
+    - name: my_var
+      debug: 
+        msg: "{{ my_var }}"
+
+

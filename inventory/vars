@@ -1,0 +1,9 @@
+---
+- name: port number
+  hosts: all
+  vars:
+    nginx_http_port: 80
+    mysql_port: 3306
+
+
+

@@ -1,0 +1,137 @@
+---
+- name: Playbook tut
+  hosts: all
+  tasks:
+
+---
+- name: DB server setting
+  hosts: db-hosts
+
+- name: Web Server
+  hosts: web-hosts
+
+
+- name: Playbook tut
+  hosts: all
+  become: true
+  tasks:
+   - name: libselinux-python install
+     yum: 
+       name: libselinux-python
+       state: present
+
+
+- name: EPEL install
+  yum:
+    name: epel-release
+    state: present
+ 
+- name: Nginx install
+  yum: 
+    name: nginx
+    state: present
+
+- name: Nginx service start autoload
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+
+---
+- name: Playbook tut
+  hosts: all
+  become: true
+  tasks:
+   - name: lielinux-python install
+     yum:
+       name: libselinux-python
+       state: present
+   - name: EPEL install
+     yum:
+       name: epel-release
+       state: present
+
+   - name: Nginx install
+     yum:
+       name: nginx
+       state: present
+
+   - name: Nginx service autoload
+     service:
+       name: nginx
+       state: started
+       enabled: true
+
+- name: Link play
+  hosts: true
+  become: true
+  tasks:
+   - name: /tmp/dir1 ansibleAdmin usr/group
+     file:
+       path: /tmp/dir1
+       state: directory
+       owner: ansibleAdmin
+       group: ansibleAdmin
+       mode: "u=rwx.g=rx,o=rx"
+
+- name: filecopy play
+  hosts: all
+  tasks:
+   - name: Ansible remotecopy
+     copy:
+       src: original_file
+       dest: ~/copied_file
+
+
+- name: sshd play
+  hosts: all
+  become: true
+  tasks:
+   - name: root SSH
+     lineinfile:
+       dest: /etc/ssh/sshd_config
+       regexp: '~PermitRootLogin\s+'
+       line: PermitRootLogin without-password
+       validate: sshd -t -f %s
+     notify:
+      - sshd reload
+  handlers:
+   - name: sshd reload
+     service:
+       name: sshd
+       state: restarted
+
+-name: SSHkey create
+  hosts: all
+  tasks: 
+   - name: tmp dir SSHkey create
+     command: "/usr/bin/ssh-keygen -b 2048 -t rsa -N '' -f /tmp/new-id_rsa"
+     args:
+       creates: /tmp/new-id_rsa
+
+- name: env cat
+  hosts: all
+  tasks:
+   - name: HOME env cat
+     command: "echo {{ ansible_env.HOME | quote }}"
+
+
+- name: env err 
+  hosts: all
+  tasks:
+   - name: err env read
+     command: "echo {{ ansible_env.NEW_ENV }}"
+     environment:
+       NEW_ENV: "new environment variable"
+
+
+- name: CeontOS 5 Ansible
+  gather_facts: false
+  hosts: all
+  become: true
+  tasks:
+   - name: yum python-simplejson install
+     raw: yum -y install python-simplejson
+
+
