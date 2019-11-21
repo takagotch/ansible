@@ -1,3 +1,28 @@
+
+
+- block:
+ - name: keyfile
+   command: "cat {{ wordpress_home }}/unique_keys"
+   changed_when: false
+   run_once: true
+   delegate_to: "{{ ansible_play_hosts[0] }}"
+   register: cat_unique_keys
+ rescue:
+  - name: keyfile
+    uri:
+      url: https://api.wordpress.org/secret-key/1.1/salt/
+      return_content: true
+    run_once: true
+    register: get_unique_keys
+  always:
+   - name: unique key
+   set_fact:
+     wordpress_unique_keys: "{{ (get_unique_keys.content if cat _unique_keys|failed else => cat_unique_keys.stdout)|trim }}"
+   - name:
+     copy:
+       content: "{{ wordpress_unique_keys }}"
+       dest: "{{ wordpress_home }}/unique_keys"
+
 - name: WordPress
   template:
     src: wp-config.j2.php
