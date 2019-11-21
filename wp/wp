@@ -1,0 +1,76 @@
+---
+- name: CentOS7 Wordpress
+  hosts: all
+  become: true
+  roles:
+   - name: common
+     tags:
+      - common
+   - name: mariadb
+     tags:
+      - mariadb
+   - name: php-fpm
+     tags:
+      - php-fpm
+   - name: nginx
+     tags:
+      - nginx
+   - name: wordpress
+     tags:
+      - wordpress
+
+---
+- name: CentOS7 
+  hosts: all
+  become: true
+  vars:
+    db_name: wordpress
+    db_user: wordpress
+    db_password: xxx
+  roles:
+    - name: common
+      tags:
+       - common
+    - name: mariadb
+      vars:  
+        mariadb_databases:
+	 - name: "{{ db_name }}"
+	mariadb_users:
+	 - name: "{{ db_user }}"
+	   password: "{{ db_password }}"
+	   priv: "{{ db_name }}.*:ALL"
+	tags:
+	 - mariadb
+      - name: php-fpm
+        tags:
+	 - php-fpm
+      - name: nginx
+        tags:
+	 - nginx
+      - name: wordpress
+        tags:
+	 - wordpress
+
+
+
+- name: PHP-FPM
+  service:
+    name: php-fpm
+    state: restarted
+
+- name: CentOS7 wp
+  roles:
+   - name: php-fpm
+     vars:
+       php_fpm_additional_packages:
+        - php-mysqlnd
+     tags:
+       - php-fpm
+
+   - name: nginx
+     vars:
+       nginx_default_port: 8080
+     tags:
+      - nginx
+
+

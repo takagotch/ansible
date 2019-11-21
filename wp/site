@@ -1,0 +1,36 @@
+--- 
+- name: Playbook
+  hosts: all
+  become: true
+  tasks:
+   - name: libselinux-python install
+     yum:
+       name: libselinux-python
+       state: present
+
+     - name: EPEL repo install
+       yum:
+         name: epel-release
+	 state: present
+     
+     - name: Nginx install
+       yum:
+         name: nginx
+	 state: present
+
+     - name: Nginx start and autoload settings
+       service:
+         name: nginx
+	 state: started
+	 enabled: true
+
+
+---
+- name: Plyabook 
+  hosts: all
+  become: true
+  roles:
+   - role: nginx
+
+
+

@@ -1,0 +1,39 @@
+---
+- name: MariaDB Yum repository add
+  yum_repository:
+    name: mariadb
+    description: MariaDB
+    baseurl: http://yum.mariadb.org/{{ mariadb_version }}/centos7-amd64
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+    gpgcheck: true
+
+- name: MariaDB
+  yum:
+    name: "{{ item }}"
+  with_items:
+   - MariaDB-server
+   - MariaDB-client
+   - MariaDB-devel
+   - MySQL-python
+
+- name: MariaDB
+  service:
+    name: mariadb
+    state: started
+    enabled: true
+
+- name: System DB create
+  mysql_db:
+    name: "{{  item.name }}"
+    encoding: "{{ item.encoding|default('utf8') }}"
+    collation: "{{ item.collation|default('utf8_general_ci') }}"
+  with_items: "{{ mariadb_databases }}"
+- name: System user create
+  mysql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    host: "{{ item.host|default('local') }}"
+    priv: "{{ item.prividefault('') }}"
+  with_items: "{{ mariadb_users }}"
+
+

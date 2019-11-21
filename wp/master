@@ -1,0 +1,12 @@
+---
+- name: gcc make
+  hosts: all
+  become: true
+  tasks:
+   - include: yum_install.yml
+     vars:
+       yum_packages:
+        - gcc
+	- maks
+
+

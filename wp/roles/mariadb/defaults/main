@@ -1,0 +1,6 @@
+---
+mariadb_version: "10.1"
+mariadb_database: []
+mariadb_users: []
+
+

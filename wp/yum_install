@@ -1,0 +1,11 @@
+---
+- name: yum
+  yum:
+    name: "{{ item }}"
+  with_itms: "{{ yum_packages }}"
+
+
+
+
+
+

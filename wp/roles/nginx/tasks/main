@@ -1,0 +1,63 @@
+---
+- name: libselinux-python and EPEL repo install
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - libselinux-python
+   - epel-release
+
+- name: Nginx install
+  yum:
+    name: nginx
+    state: present
+
+- name: Nginx start and autoload settings
+  service:
+   name: nginx
+   state: started
+   enabled: true
+
+
+- name: nginx.conf
+  template:
+    src: nginx.j2.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: nginx.conf
+  template:
+    src: nginx.j2.conf
+    dest: /etc/nginx/nginx.conf
+    validate: nginx -t -c %s
+
+
+---
+- name: Nginx reload
+  service:
+    name: nginx
+    state: reloaded
+
+- name: nginx.conf 
+  template:
+    src: nginx.j2.conf
+    dest: /etc/nginx/nginx.conf
+    validate: nginx -t -c %s
+  notify:
+   - Nginx reload
+
+- name: Nginx group
+  group:
+    name: "{{ nginx_group }}"
+    system: true
+
+- name: Nginx user create
+  user:
+    name: "{{ nginx_user }}"
+    home: /var/lib/nginx
+    shell: /sbin/nologin
+    groups: "/sbin/nologin"
+    append: true
+    system: true
+
+
+

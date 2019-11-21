@@ -1,0 +1,12 @@
+// https://api.wordpress.org/secret-key/1.1/salt/
+
+define('AUTH_KEY', 'XXX')
+define('SECURE_AUTH_KEY', 'XXX')
+define('LOGGED_IN_KEY', 'XXX')
+define('NONCE_KEY', 'XXX')
+define('AUTH_SALT', 'XXX')
+define('SECURE_AUTH_SALT', 'XXX')
+define('LOGGED_IN_SALT', 'XXX')
+define('NONCE_SALT', 'XXX')
+
+
